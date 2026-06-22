@@ -1,0 +1,31 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# React
+node_modules/
+dist/
+
+# Logs
+*.log
+
+# User files
+*.user
+*.suo
+
+# Environment
+.env.production
+
+# Publish folders
+publish/
+wwwroot/uploads/
+
+# OS
+Thumbs.db
+.DS_Store
+
+BillingSystem/BillingSystem.API/wwwroot/uploads/
+**/wwwroot/uploads/
+
+build*.txt
