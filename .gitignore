@@ -29,3 +29,8 @@ BillingSystem/BillingSystem.API/wwwroot/uploads/
 **/wwwroot/uploads/
 
 build*.txt
+
+# Environment
+.env
+.env.*
+!.env.example
