@@ -34,3 +34,5 @@ build*.txt
 .env
 .env.*
 !.env.example
+
+BillingSystem/BillingSystem.API/appsettings.json
