@@ -15,11 +15,15 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("[Auth-Login] Starting login request...");
+    console.log("[Auth-Login] API Base URL configured is:", import.meta.env.VITE_API_BASE_URL);
+    console.log("[Auth-Login] Payload username:", formData.username);
 
     try {
       showLoader('Authenticating credentials...');
       setError('');
       const response = await authService.login(formData.username, formData.password);
+      console.log("[Auth-Login] Response received:", response);
       
       if (response.status === 'success') {
         localStorage.setItem('token', response.token);
@@ -29,11 +33,20 @@ function Login() {
         navigate('/dashboard');
       } else {
         const errorMessage = response.message || 'Invalid username or password.';
+        console.warn("[Auth-Login] Login not successful. Message:", errorMessage);
         setError(errorMessage);
         hideLoader();
         showError('Login Failed', errorMessage);
       }
     } catch (err) {
+      console.error("[Auth-Login] Exception occurred during login request:", err);
+      if (err.response) {
+        console.error("[Auth-Login] Server responded with error status:", err.response.status, "data:", err.response.data);
+      } else if (err.request) {
+        console.error("[Auth-Login] No response received. The request was made but backend may be offline, port wrong, or CORS blocked:", err.request);
+      } else {
+        console.error("[Auth-Login] Request setup error:", err.message);
+      }
       const errorMessage = err.response?.data?.message || 'Invalid username or password.';
       setError(errorMessage);
       hideLoader();

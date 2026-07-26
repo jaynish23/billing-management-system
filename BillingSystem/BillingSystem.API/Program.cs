@@ -6,8 +6,15 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using BillingSystem.API.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure File Logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.AddFile(System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "Logs", "app-log.txt"));
 
 // Configure QuestPDF License
 QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
@@ -115,11 +122,14 @@ builder.Services.AddScoped<BillingSystem.Application.Interfaces.Services.IPdfSer
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+// if (app.Environment.IsDevelopment())
+// {
+//     app.UseSwagger();
+//     app.UseSwaggerUI();
+// }
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 

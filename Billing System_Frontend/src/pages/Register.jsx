@@ -34,14 +34,26 @@ function Register() {
       return;
     }
     
+    console.log("[Auth-Register] Sending OTP code to:", formData.email);
+    console.log("[Auth-Register] API Base URL configured is:", import.meta.env.VITE_API_BASE_URL);
+
     try {
       showLoader('Sending OTP verification code...');
       setError('');
       await authService.sendOtp(formData.email);
+      console.log("[Auth-Register] OTP request succeeded.");
       hideLoader();
       showSuccess('OTP Sent Successfully', 'Please check your email.');
       setStep(2);
     } catch (err) {
+      console.error("[Auth-Register] Exception occurred during Send OTP request:", err);
+      if (err.response) {
+        console.error("[Auth-Register] Server responded with error status:", err.response.status, "data:", err.response.data);
+      } else if (err.request) {
+        console.error("[Auth-Register] No response received. The request was made but backend may be offline, port wrong, or CORS blocked:", err.request);
+      } else {
+        console.error("[Auth-Register] Request setup error:", err.message);
+      }
       const errMsg = err.response?.data?.message || 'Failed to send OTP.';
       setError(errMsg);
       hideLoader();
@@ -56,14 +68,26 @@ function Register() {
       return;
     }
     
+    console.log("[Auth-Register] Verifying OTP code:", formData.otp, "for email:", formData.email);
+    console.log("[Auth-Register] API Base URL configured is:", import.meta.env.VITE_API_BASE_URL);
+
     try {
       showLoader('Verifying OTP...');
       setError('');
       await authService.verifyOtp(formData.email, formData.otp);
+      console.log("[Auth-Register] OTP verification succeeded.");
       hideLoader();
       showSuccess('OTP Verified Successfully', 'Continue registration.');
       setStep(3);
     } catch (err) {
+      console.error("[Auth-Register] Exception occurred during Verify OTP request:", err);
+      if (err.response) {
+        console.error("[Auth-Register] Server responded with error status:", err.response.status, "data:", err.response.data);
+      } else if (err.request) {
+        console.error("[Auth-Register] No response received. The request was made but backend may be offline, port wrong, or CORS blocked:", err.request);
+      } else {
+        console.error("[Auth-Register] Request setup error:", err.message);
+      }
       const errMsg = err.response?.data?.message || 'Invalid or expired OTP.';
       setError(errMsg);
       hideLoader();
@@ -102,20 +126,34 @@ function Register() {
       return;
     }
 
+    console.log("[Auth-Register] Starting user registration...");
+    console.log("[Auth-Register] API Base URL configured is:", import.meta.env.VITE_API_BASE_URL);
+    console.log("[Auth-Register] Username:", formData.username);
+
     try {
       showLoader('Creating your account...');
       const response = await authService.register(formData);
+      console.log("[Auth-Register] Response received:", response);
       if (response.status === 'success') {
         hideLoader();
         showSuccess('Registration Successful', 'Your account has been created.');
         navigate('/login');
       } else {
         const errMsg = response.message || 'Registration failed.';
+        console.warn("[Auth-Register] Registration failed. Message:", errMsg);
         setError(errMsg);
         hideLoader();
         showError('Registration Failed', errMsg);
       }
     } catch (err) {
+      console.error("[Auth-Register] Exception occurred during registration request:", err);
+      if (err.response) {
+        console.error("[Auth-Register] Server responded with error status:", err.response.status, "data:", err.response.data);
+      } else if (err.request) {
+        console.error("[Auth-Register] No response received. The request was made but backend may be offline, port wrong, or CORS blocked:", err.request);
+      } else {
+        console.error("[Auth-Register] Request setup error:", err.message);
+      }
       const errMsg = err.response?.data?.message || 'Registration failed.';
       setError(errMsg);
       hideLoader();

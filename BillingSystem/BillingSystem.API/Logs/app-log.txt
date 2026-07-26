@@ -1,0 +1,19 @@
+[2026-06-25 20:21:41] [Warning] [Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer] The ASP.NET Core developer certificate is not trusted. For information about trusting the ASP.NET Core developer certificate, see https://aka.ms/aspnet/https-trust-dev-cert.
+[2026-06-25 20:21:42] [Information] [Microsoft.Hosting.Lifetime] Now listening on: https://localhost:7158
+[2026-06-25 20:21:42] [Information] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5168
+[2026-06-25 20:21:42] [Information] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down.
+[2026-06-25 20:21:42] [Information] [Microsoft.Hosting.Lifetime] Hosting environment: Development
+[2026-06-25 20:21:42] [Information] [Microsoft.Hosting.Lifetime] Content root path: J:\Broker Management System\BillingSystem\BillingSystem.API
+[2026-06-25 20:22:09] [Information] [BillingSystem.API.Controllers.AuthController] [AuthAPI] Login called for username: admin
+[2026-06-25 20:22:10] [Warning] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'DukanTaxInfo' on entity type 'UserDukan'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-06-25 20:22:10] [Warning] [Microsoft.EntityFrameworkCore.Model.Validation] No store type was specified for the decimal property 'MillTaxInfo' on entity type 'UserMill'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+[2026-06-25 20:22:11] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (58ms) [Parameters=[@__loginDto_Username_0='?' (Size = 50)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[Uuserid], [u].[CreatedDate], [u].[IsActive], [u].[MobileNumber], [u].[PreferredLanguage], [u].[UserImagePath], [u].[UserNo], [u].[Username], [u].[vemailid], [u].[vfirstname], [u].[vlastname], [u].[vpassword]
+FROM [Usermst] AS [u]
+WHERE [u].[Username] = @__loginDto_Username_0 AND [u].[IsActive] = CAST(1 AS bit)
+[2026-06-25 20:22:12] [Information] [Microsoft.EntityFrameworkCore.Database.Command] Executed DbCommand (10ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime2), @p2='?' (DbType = Boolean), @p3='?' (DbType = DateTime2), @p4='?' (DbType = DateTime2), @p5='?' (DbType = Guid), @p6='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+INSERT INTO [UserLoginDetails] ([LoginId], [CreatedDate], [IsActiveSession], [LoginTime], [LogoutTime], [UserId], [UserNo])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+[2026-06-25 20:22:12] [Information] [BillingSystem.API.Controllers.AuthController] [AuthAPI] Login result status for user admin: success
